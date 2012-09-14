@@ -1,5 +1,6 @@
 import model.FileMapCollection;
 import threads.LookFolder;
+import threads.LookFolderToRemovedFiles;
 
 
 public class Executer {
@@ -11,11 +12,16 @@ public class Executer {
 		// TODO Auto-generated method stub
 		FileMapCollection fmc = new FileMapCollection();
 		
+		String $folder = "/home/andre/";
+		
 		// 4 Threads para verificar a as pastas
 		for(int i = 0; i < 4; i++){
-			LookFolder lf = new LookFolder(fmc);
+			LookFolder lf = new LookFolder($folder, fmc);
 			lf.start();
 		}
+		
+		LookFolderToRemovedFiles lfR = new LookFolderToRemovedFiles($folder, fmc);
+		lfR.start();
 	}
 
 }

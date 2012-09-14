@@ -5,17 +5,21 @@ import java.io.File;
 import model.FileMapCollection;
 
 public class LookFolder extends Thread{
-	public static File dir = new File("/home/andre/");
+	private File dir;
 	
-	public FileMapCollection FMC;
+	private FileMapCollection FMC;
+	private String folderPath = "";
 	
-	public LookFolder(FileMapCollection fmc){
+	public LookFolder(String folder, FileMapCollection fmc){
 		this.FMC = fmc;
+		this.dir = new File(folder);
 	}
 
 	public void run(){
 		try {
 			while(true){
+				new File(this.folderPath);
+				
 				File[] files = dir.listFiles();
 				for(File f : files){
 					FMC.setFile(f);
