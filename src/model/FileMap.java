@@ -6,6 +6,7 @@ public class FileMap {
 	protected String id;
 	protected File f;
 	protected boolean isMapped = false;
+	MapFile map;
 	
 	public FileMap(File f, String id){
 		this.f = f;
@@ -23,4 +24,14 @@ public class FileMap {
 	public void setMapped(boolean mapped){
 		this.isMapped = mapped;
 	}
+
+	public MapFile getMap() {
+		return map;
+	}
+
+	public void setMap(MapFile map) {
+		this.map = map;
+	}
+	
+	
 }

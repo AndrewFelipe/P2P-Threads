@@ -8,6 +8,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import files.control.MapsGen;
+
 public class FileMapCollection {
 	
 	protected HashMap<String, FileMap> listOfFilesMap = new HashMap<String, FileMap>(); 
@@ -19,6 +21,7 @@ public class FileMapCollection {
 	
 	public void setFile(File f){
 		
+		MapsGen mg = new MapsGen();
 		lock.lock();
 		try{
 			String id = f.getName();
@@ -27,7 +30,8 @@ public class FileMapCollection {
 			
 			System.out.println(f.getName());
 			
-			FileMap fm = new FileMap(f, id);
+			FileMap fm = new FileMap(f, id);			
+			fm.setMap(mg.getMapFileFromFile(f));
 			
 			this.listOfFilesMap.put(id, fm);
 			hasFile.signalAll();

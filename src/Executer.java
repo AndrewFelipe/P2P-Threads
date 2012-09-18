@@ -12,7 +12,7 @@ public class Executer {
 		// TODO Auto-generated method stub
 		FileMapCollection fmc = new FileMapCollection();
 		
-		String $folder = "/home/andre/";
+		String $folder = "c:\\compartilhar";
 		
 		// 4 Threads para verificar a as pastas
 		for(int i = 0; i < 4; i++){

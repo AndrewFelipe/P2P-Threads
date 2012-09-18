@@ -26,6 +26,7 @@ public class MapsGen {
 		m.setFilename(file.getName());
 		int qtdSeg = Integer.valueOf(properties.getProperty("qtdSegment"));
 		m.setQtdSegments(qtdSeg);
+		m.setSize(file.length());		
 		return m;
 	}
 }

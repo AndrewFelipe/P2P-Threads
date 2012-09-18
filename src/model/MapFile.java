@@ -1,11 +1,14 @@
 package model;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class MapFile {
 	String filename;
 	String crc;
 	long size;
 	int qtdSegments;
-	
+		
 	public String getFilename() {
 		return filename;
 	}
@@ -24,11 +27,15 @@ public class MapFile {
 	public void setSize(long size) {
 		this.size = size;
 	}
+	
 	public int getQtdSegments() {
 		return qtdSegments;
 	}
-	public void setQtdSegments(int qtdSegments) {
-		this.qtdSegments = qtdSegments;
+	public void setQtdSegments(int qtdSeg) {
+		qtdSegments = qtdSeg;
+		
 	}
+
+	
 	
 }
