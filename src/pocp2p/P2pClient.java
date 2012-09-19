@@ -1,24 +1,24 @@
-package pocChat;
+package pocp2p;
 import java.net.*;
 import java.io.*;
 
-public class ChatClient implements Runnable {
+public class P2pClient implements Runnable {
 	private Socket socket = null;
 	private Thread thread = null;
 	private DataInputStream console = null;
 	private DataOutputStream streamOut = null;
-	private ChatClientThread client = null;
+	private P2pClientThread client = null;
 
-	public ChatClient(String serverName, int serverPort) {
-		System.out.println("Establishing connection. Please wait ...");
+	public P2pClient(String serverName, int serverPort) {
+		System.out.println("Estabelecendo conexão. Aguarde....");
 		try {
 			socket = new Socket(serverName, serverPort);
-			System.out.println("Connected: " + socket);
+			System.out.println("Conectado: " + socket);
 			start();
 		} catch (UnknownHostException uhe) {
-			System.out.println("Host unknown: " + uhe.getMessage());
+			System.out.println("Host desconhecido: " + uhe.getMessage());
 		} catch (IOException ioe) {
-			System.out.println("Unexpected exception: " + ioe.getMessage());
+			System.out.println("Exceção inexperada: " + ioe.getMessage());
 		}
 	}
 
@@ -36,7 +36,7 @@ public class ChatClient implements Runnable {
 
 	public void handle(String msg) {
 		if (msg.equals(".bye")) {
-			System.out.println("Good bye. Press RETURN to exit ...");
+			System.out.println("Saindo. Aperte ESC para sair ...");
 			stop();
 		} else
 			System.out.println(msg);
@@ -46,7 +46,7 @@ public class ChatClient implements Runnable {
 		console = new DataInputStream(System.in);
 		streamOut = new DataOutputStream(socket.getOutputStream());
 		if (thread == null) {
-			client = new ChatClientThread(this, socket);
+			client = new P2pClientThread(this, socket);
 			thread = new Thread(this);
 			thread.start();
 		}
@@ -65,14 +65,14 @@ public class ChatClient implements Runnable {
 			if (socket != null)
 				socket.close();
 		} catch (IOException ioe) {
-			System.out.println("Error closing ...");
+			System.out.println("Erro ao finalizar ...");
 		}
 		client.close();
 		client.stop();
 	}
 
 	public static void main(String args[]) {
-		ChatClient client = null;
-		client = new ChatClient("localhost", 6668);
+		P2pClient client = null;
+		client = new P2pClient("localhost", 6668);
 	}
 }

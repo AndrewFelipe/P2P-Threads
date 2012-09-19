@@ -1,15 +1,15 @@
-package pocChat;
+package pocp2p;
 import java.net.*;
 import java.io.*;
 
-public class ChatServerThread extends Thread
-{  private ChatServer       server    = null;
+public class P2pServerThread extends Thread
+{  private P2pServer       server    = null;
    private Socket           socket    = null;
    private int              ID        = -1;
    private DataInputStream  streamIn  =  null;
    private DataOutputStream streamOut = null;
 
-   public ChatServerThread(ChatServer _server, Socket _socket)
+   public P2pServerThread(P2pServer _server, Socket _socket)
    {  super();
       server = _server;
       socket = _socket;

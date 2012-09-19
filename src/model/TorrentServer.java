@@ -7,7 +7,9 @@ import java.net.Socket;
 import java.util.Collection;
 import java.util.concurrent.Semaphore;
 
-import pocChat.ChatServerThread;
+import files.control.FileMapCollection;
+
+import pocp2p.P2pServerThread;
 
 public class TorrentServer {
 	private static Semaphore clients;

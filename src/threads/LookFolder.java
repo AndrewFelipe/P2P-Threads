@@ -2,7 +2,8 @@ package threads;
 
 import java.io.File;
 
-import model.FileMapCollection;
+import files.control.FileMapCollection;
+
 
 public class LookFolder extends Thread{
 	private File dir;

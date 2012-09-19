@@ -13,18 +13,11 @@ public class MapsGen {
 	Properties properties = new Properties();
 	
 	public MapFile getMapFileFromFile(File file){
-		try {
-			properties.load(new FileInputStream("p2pthreads.properties"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//properties.load(new FileInputStream("model/p2pthreads.properties"));
 		MapFile m = new MapFile();
 		m.setFilename(file.getName());
-		int qtdSeg = Integer.valueOf(properties.getProperty("qtdSegment"));
+		//int qtdSeg = Integer.valueOf(properties.getProperty("qtdSegment"));
+		int qtdSeg = 5;
 		m.setQtdSegments(qtdSeg);
 		m.setSize(file.length());		
 		return m;

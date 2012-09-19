@@ -1,33 +1,37 @@
-package pocChat;
+package pocp2p;
+
 import java.net.*;
 import java.io.*;
 
-public class ChatServer implements Runnable {
-	private ChatServerThread clients[] = new ChatServerThread[50];
+import threads.LookFolder;
+import threads.LookFolderToRemovedFiles;
+import files.control.FileMapCollection;
+
+public class P2pServer implements Runnable {
+	private P2pServerThread clients[] = new P2pServerThread[50];
 	private ServerSocket server = null;
 	private Thread thread = null;
 	private int clientCount = 0;
 
-	public ChatServer(int port) {
+	public P2pServer(int port) {
 		try {
-			System.out
-					.println("Binding to port " + port + ", please wait  ...");
+			System.out.println("Procurando porta " + port + ", aguarde  ...");
 			server = new ServerSocket(port);
-			System.out.println("Server started: " + server);
+			System.out.println("Server iniciado: " + server);
 			start();
 		} catch (IOException ioe) {
-			System.out.println("Can not bind to port " + port + ": "
-					+ ioe.getMessage());
+			System.out.println("Não foi possível alocar uma porta " + port
+					+ ": " + ioe.getMessage());
 		}
 	}
 
 	public void run() {
 		while (thread != null) {
 			try {
-				System.out.println("Waiting for a client ...");
+				System.out.println("Aguardando um client ...");
 				addThread(server.accept());
 			} catch (IOException ioe) {
-				System.out.println("Server accept error: " + ioe);
+				System.out.println("Erro do servidor: " + ioe);
 				stop();
 			}
 		}
@@ -66,8 +70,8 @@ public class ChatServer implements Runnable {
 	public synchronized void remove(int ID) {
 		int pos = findClient(ID);
 		if (pos >= 0) {
-			ChatServerThread toTerminate = clients[pos];
-			System.out.println("Removing client thread " + ID + " at " + pos);
+			P2pServerThread toTerminate = clients[pos];
+			System.out.println("Removendo client thread " + ID + " at " + pos);
 			if (pos < clientCount - 1)
 				for (int i = pos + 1; i < clientCount; i++)
 					clients[i - 1] = clients[i];
@@ -75,7 +79,7 @@ public class ChatServer implements Runnable {
 			try {
 				toTerminate.close();
 			} catch (IOException ioe) {
-				System.out.println("Error closing thread: " + ioe);
+				System.out.println("Erro ao finializar thread: " + ioe);
 			}
 			toTerminate.stop();
 		}
@@ -83,22 +87,35 @@ public class ChatServer implements Runnable {
 
 	private void addThread(Socket socket) {
 		if (clientCount < clients.length) {
-			System.out.println("Client accepted: " + socket);
-			clients[clientCount] = new ChatServerThread(this, socket);
+			System.out.println("Cliente aceito: " + socket);
+			clients[clientCount] = new P2pServerThread(this, socket);
 			try {
 				clients[clientCount].open();
 				clients[clientCount].start();
 				clientCount++;
 			} catch (IOException ioe) {
-				System.out.println("Error opening thread: " + ioe);
+				System.out.println("Erro inicializando thread: " + ioe);
 			}
 		} else
-			System.out.println("Client refused: maximum " + clients.length
-					+ " reached.");
+			System.out.println("Cliente recusado: máximo " + clients.length
+					+ " ultrapassado.");
 	}
 
 	public static void main(String args[]) {
-		ChatServer server = null;
-		server = new ChatServer(6668);
+		P2pServer server = null;
+		server = new P2pServer(6668);
+
+		FileMapCollection fmc = new FileMapCollection();
+
+		String $folder = "c:\\compartilhar";
+
+		// 4 Threads para verificar a as pastas
+		for (int i = 0; i < 4; i++) {
+			LookFolder lf = new LookFolder($folder, fmc);
+			lf.start();
+		}
+
+		LookFolderToRemovedFiles lfR = new LookFolderToRemovedFiles($folder,fmc);
+		lfR.start();
 	}
 }

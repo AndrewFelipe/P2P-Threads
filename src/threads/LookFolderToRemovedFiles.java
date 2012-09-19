@@ -3,8 +3,9 @@ package threads;
 import java.io.File;
 import java.util.HashMap;
 
+import files.control.FileMapCollection;
+
 import model.FileMap;
-import model.FileMapCollection;
 
 public class LookFolderToRemovedFiles extends Thread{
 	
@@ -26,6 +27,7 @@ public class LookFolderToRemovedFiles extends Thread{
 				File[] files = dir.listFiles();
 				for(File f : files){
 					listOfFilesFromFolder.put(f.getName(), f);
+					
 				}
 				for (FileMap file : this.FMC.getAllFiles()){
 					if(!listOfFilesFromFolder.containsKey(file.getFile().getName())){

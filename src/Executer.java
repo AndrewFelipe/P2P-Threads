@@ -1,4 +1,4 @@
-import model.FileMapCollection;
+import files.control.FileMapCollection;
 import threads.LookFolder;
 import threads.LookFolderToRemovedFiles;
 

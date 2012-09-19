@@ -1,4 +1,4 @@
-package model;
+package files.control;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,7 +8,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import files.control.MapsGen;
+import model.FileMap;
+
 
 public class FileMapCollection {
 	
