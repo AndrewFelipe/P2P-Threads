@@ -17,7 +17,7 @@ public class Zip {
 	 * fileToZip: path and name of file to zip
 	 * nameFileZip: path and name of the file that will be zipped
 	 */
-	public void ZipFile(String fileToZip, String nameFileZip){
+	public File ZipFile(String fileToZip, String nameFileZip){
 		
 		try {
 	         BufferedInputStream origin = null;
@@ -36,12 +36,16 @@ public class Zip {
 	         while((count = origin.read(data, 0, BUFFER)) != -1) {
 	            out.write(data, 0, count);
 	         }
+	         
 	         origin.close();
 	         
 	         out.close();
+	         return f;
 	      } catch(Exception e) {
 	         e.printStackTrace();
 	      }
+		
+		return null;
 	}
 	
 	/*

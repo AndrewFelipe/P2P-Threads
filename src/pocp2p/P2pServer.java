@@ -20,7 +20,7 @@ public class P2pServer implements Runnable {
 			System.out.println("Server iniciado: " + server);
 			start();
 		} catch (IOException ioe) {
-			System.out.println("Não foi possível alocar uma porta " + port
+			System.out.println("Nï¿½o foi possï¿½vel alocar uma porta " + port
 					+ ": " + ioe.getMessage());
 		}
 	}
@@ -97,7 +97,7 @@ public class P2pServer implements Runnable {
 				System.out.println("Erro inicializando thread: " + ioe);
 			}
 		} else
-			System.out.println("Cliente recusado: máximo " + clients.length
+			System.out.println("Cliente recusado: mï¿½ximo " + clients.length
 					+ " ultrapassado.");
 	}
 
@@ -112,7 +112,7 @@ public class P2pServer implements Runnable {
 		// 4 Threads para verificar a as pastas
 		for (int i = 0; i < 4; i++) {
 			LookFolder lf = new LookFolder($folder, fmc);
-			lf.start();
+			lf.run();
 		}
 
 		LookFolderToRemovedFiles lfR = new LookFolderToRemovedFiles($folder,fmc);

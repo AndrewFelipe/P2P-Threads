@@ -1,6 +1,11 @@
+import java.util.HashMap;
+
+import model.FileZip;
+
 import files.control.FileMapCollection;
 import threads.LookFolder;
 import threads.LookFolderToRemovedFiles;
+import threads.ZipFilesFolder;
 
 
 public class Executer {
@@ -11,17 +16,27 @@ public class Executer {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		FileMapCollection fmc = new FileMapCollection();
+		HashMap<String, FileZip> fzc = new HashMap<String, FileZip>();
 		
-		String $folder = "c:\\compartilhar";
+		String $folder = "/home/andre/Downloads";
 		
-		// 4 Threads para verificar a as pastas
-		for(int i = 0; i < 4; i++){
-			LookFolder lf = new LookFolder($folder, fmc);
-			lf.start();
+		try {
+			while(true){
+				LookFolder lf = new LookFolder($folder, fmc);
+				lf.run();
+				
+				ZipFilesFolder zf = new ZipFilesFolder($folder, fzc);
+				zf.run();
+				
+				Thread.sleep(250);
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		LookFolderToRemovedFiles lfR = new LookFolderToRemovedFiles($folder, fmc);
-		lfR.start();
+		//LookFolderToRemovedFiles lfR = new LookFolderToRemovedFiles($folder, fmc);
+		//lfR.start();
 	}
 
 }

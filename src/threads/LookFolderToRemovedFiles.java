@@ -27,8 +27,8 @@ public class LookFolderToRemovedFiles extends Thread{
 				File[] files = dir.listFiles();
 				for(File f : files){
 					listOfFilesFromFolder.put(f.getName(), f);
-					
 				}
+				
 				for (FileMap file : this.FMC.getAllFiles()){
 					if(!listOfFilesFromFolder.containsKey(file.getFile().getName())){
 						// Gravar em algum lugar para remover os arquivos...
