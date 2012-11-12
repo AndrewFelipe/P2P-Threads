@@ -28,6 +28,7 @@ public class Zip {
 	         byte data[] = new byte[BUFFER];
 	         // get a list of files from current directory
 	         File f = new File(nameFileZip);
+	         f.createNewFile();
 	         FileInputStream fi = new FileInputStream(f);
 	         origin = new BufferedInputStream(fi, BUFFER);
 	         ZipEntry entry = new ZipEntry(fileToZip);

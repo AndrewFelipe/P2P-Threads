@@ -1,6 +1,7 @@
 package pocp2p;
 
 import java.net.*;
+import java.util.HashMap;
 import java.io.*;
 
 import threads.LookFolder;
@@ -110,8 +111,9 @@ public class P2pServer implements Runnable {
 		String $folder = "c:\\compartilhar";
 
 		// 4 Threads para verificar a as pastas
+		HashMap<String, File> listOfFilesFromFolder = new HashMap<String, File>();
 		for (int i = 0; i < 4; i++) {
-			LookFolder lf = new LookFolder($folder, fmc);
+			LookFolder lf = new LookFolder($folder, fmc, listOfFilesFromFolder);
 			lf.run();
 		}
 
